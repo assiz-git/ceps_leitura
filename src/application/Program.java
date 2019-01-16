@@ -2,6 +2,7 @@ package application;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -15,13 +16,16 @@ public class Program {
 
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 		String sd1 = sdf.format(new Date());
-		String path = "M:\\ID_221.479 - DP-2016-0040878 - Base de Perdas - TG\\Produção\\20181228\\A100A.G050.txt";
-		path="L:\\Rogerio\\Cursos\\Udemy\\Ceps\\ceps.csv";
+		//String path = "M:\\ID_221.479 - DP-2016-0040878 - Base de Perdas - TG\\Produção\\20181228\\A100A.G050.txt";
+		String pathRead="L:\\Rogerio\\Cursos\\Udemy\\Ceps\\ceps.csv";
+		String pathWrite="L:\\Rogerio\\Cursos\\Udemy\\Ceps\\ceps.json";
 		BufferedReader br = null;
 		FileReader fr = null;
+		FileWriter fw = null;
 		try {
 			//Integer linhas = 0;
-			fr = new FileReader(path);
+			fr = new FileReader(pathRead);
+			fw = new FileWriter(pathWrite);
 			br = new BufferedReader(fr);
 			String line = br.readLine();
 			while (line != null) {
@@ -43,7 +47,18 @@ public class Program {
 						stb.append("	\"complemento\": \"" + campo[5] + "\"\n");
 						//stb.append("    }\n");
 						stb.append("}\n\n");
-						System.out.println(stb);
+						//System.out.println(stb);
+
+						StringBuilder stb2 = new StringBuilder();
+						stb2.append("{");
+						stb2.append("\"cep\": \"" + campo[0] + "\", ");
+						stb2.append("\"cidade\": \"" + campo[1] + "\", ");
+						stb2.append("\"estado\": \"" + campo[2] + "\", ");
+						stb2.append("\"bairro\": \"" + campo[3] + "\", ");
+						stb2.append("\"logradouro\": \"" + campo[4] + "\", ");
+						stb2.append("\"complemento\": \"" + campo[5] + "\" ");
+						stb2.append("}\n");
+						fw.append(stb2);
 						//System.out.println("Campo " + i + ": " + campo[i]);
 					//}
 				}
